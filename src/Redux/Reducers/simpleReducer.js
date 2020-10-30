@@ -1,14 +1,14 @@
 const initialState = {
-    post : []
-}
+  post: [],
+};
 
 export default (state = initialState, action) => {
-    switch (action.type) {
-     case 'SIMPLE_ACTION':
+  switch (action.type) {
+    case "SIMPLE_ACTION":
       return {
-       post: [...state.post , action.payload]
-      }
-     default:
-      return state
-    }
-   }
+        post: [...state.post, action.payload],
+      };
+    default:
+      return state;
+  }
+};
