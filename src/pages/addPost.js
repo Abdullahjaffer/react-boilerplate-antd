@@ -1,32 +1,38 @@
+import { Button, Form, Input, message } from "antd";
 import React from "react";
-import { connect } from "react-redux";
-import { simpleAction } from "../Redux/Actions/simpleAction";
-class Addpost extends React.Component {
-  state = {};
-  handleChange = (event) => {
-    this.setState({ value: event.target.value });
-    console.log(this.state);
-  };
-  handleAdd = () => {
-    this.props.simpleAction(this.state.value);
-  };
-  render() {
-    return (
-      <div>
-        <h1>Add Post</h1>
-        <input
-          type="text"
-          value={this.state.value}
-          onChange={this.handleChange}
-        />
-        <button onClick={this.handleAdd}>Post</button>
-      </div>
-    );
-  }
-}
+import { useDispatch } from "react-redux";
+import { addPost } from "../redux/slices/postSlice";
 
-const mapDispatchToProps = (dispatch) => ({
-  simpleAction: (v) => dispatch(simpleAction(v)),
-});
+const AddPost = () => {
+  const dispatch = useDispatch();
 
-export default connect(null, mapDispatchToProps)(Addpost);
+  return (
+    <>
+      <h2>Add Posts</h2>
+      <Form
+        onFinish={(values) => {
+          dispatch(addPost(values.post));
+          message.success("Post added!");
+        }}
+        layout="vertical"
+      >
+        <Form.Item
+          name="post"
+          label="Post"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Button type="primary" htmlType="submit">
+          Add
+        </Button>
+      </Form>
+    </>
+  );
+};
+
+export default AddPost;

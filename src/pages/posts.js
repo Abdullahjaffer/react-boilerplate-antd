@@ -1,26 +1,18 @@
+import { List } from "antd";
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
-class Post extends React.Component {
-  componentDidMount() {
-    console.log(this.props);
-  }
-  render() {
-    return (
-      <div>
-        <h1>Post</h1>
-        <ul>
-          {this.props.posts.map((v) => (
-            <li>{v}</li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-}
+const Post = () => {
+  let posts = useSelector((state) => state.postSlice.posts);
 
-const mapStateToProps = (state) => ({
-  posts: state.simpleReducer.post,
-});
+  return (
+    <List
+      header={<h2>Posts</h2>}
+      bordered
+      dataSource={posts}
+      renderItem={(item) => <List.Item>{item}</List.Item>}
+    />
+  );
+};
 
-export default connect(mapStateToProps)(Post);
+export default Post;
