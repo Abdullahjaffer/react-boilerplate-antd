@@ -39,8 +39,6 @@ const UserMenu = () => {
         style={{
           marginRight: 10,
         }}
-        checkedChildren={}
-        unCheckedChildren={}
       />
       <Dropdown overlay={menu} placement="bottomRight">
         <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
