@@ -7,6 +7,7 @@ import { ReactComponent as ReactLogo } from "../../assets/images/logo.svg";
 import { switchTheme } from "../../redux/slices/themeSlice";
 import { deleteUser } from "../../redux/slices/userSlice";
 import FlexedDiv from "../ui/flexedDiv";
+import ThemeSwitcher from "./themeSwitcher"
 
 const { Header } = Layout;
 
@@ -30,16 +31,7 @@ const UserMenu = () => {
   );
   return (
     <FlexedDiv>
-      <Switch
-        checked={dark}
-        onChange={(value) => {
-          dispatch(switchTheme(value));
-        }}
-        size="small"
-        style={{
-          marginRight: 10,
-        }}
-      />
+      <ThemeSwitcher />
       <Dropdown overlay={menu} placement="bottomRight">
         <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
           <FlexedDiv>

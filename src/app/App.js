@@ -14,7 +14,6 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={() => <h2>Loading...</h2>} persistor={persistor}>
         <ThemeProvider>
-          <ThemeSwitcher />
           <AppRoutesMapper />
         </ThemeProvider>
       </PersistGate>
