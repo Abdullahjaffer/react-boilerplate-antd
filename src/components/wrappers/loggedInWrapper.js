@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import LayoutWithSidebar from "../layoutComponents/layoutWithSidebar";
+import LayoutWithSidebar from "../layout/layoutWithSidebar";
 
 const LoggedInWrapper = ({ children }) => {
   const history = useHistory();

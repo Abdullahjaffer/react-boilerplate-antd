@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { ReactComponent as ReactLogo } from "../../assets/images/logo.svg";
 import { switchTheme } from "../../redux/slices/themeSlice";
 import { deleteUser } from "../../redux/slices/userSlice";
-import FlexedDiv from "../uiComponents/flexedDiv";
+import FlexedDiv from "../ui/flexedDiv";
 
 const { Header } = Layout;
 

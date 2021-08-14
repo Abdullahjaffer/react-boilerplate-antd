@@ -1,11 +1,11 @@
 const path = require("path");
 const fs = require("fs");
-// const { generateTheme, getLessVars } = require('../../index');
+// const { generateTheme, getLessVars } = require("../../index");
 // const { generateTheme, getLessVars } = require('../../../antd-theme-webpack-plugin/');
 const { generateTheme, getLessVars } = require("antd-theme-generator");
 
 const themeVariables = getLessVars(
-  path.join(__dirname, "./src/theming/vars.less")
+  path.join(__dirname, "./src/styles/vars.less")
 );
 const defaultVars = getLessVars(
   "./node_modules/antd/lib/style/themes/default.less"
@@ -19,14 +19,17 @@ const lightVars = {
   ...getLessVars("./node_modules/antd/lib/style/themes/compact.less"),
   "@primary-color": defaultVars["@primary-color"],
 };
-fs.writeFileSync("./src/theming/dark.json", JSON.stringify(darkVars));
-fs.writeFileSync("./src/theming/light.json", JSON.stringify(lightVars));
-fs.writeFileSync("./src/theming/theme.json", JSON.stringify(themeVariables));
+fs.writeFileSync("./src/styles/theme/dark.json", JSON.stringify(darkVars));
+fs.writeFileSync("./src/styles/theme/light.json", JSON.stringify(lightVars));
+fs.writeFileSync(
+  "./src/styles/theme/theme.json",
+  JSON.stringify(themeVariables)
+);
 
 const options = {
   stylesDir: path.join(__dirname, "./src"),
   antDir: path.join(__dirname, "./node_modules/antd"),
-  varFile: path.join(__dirname, "./src/theming/vars.less"),
+  varFile: path.join(__dirname, "./src/styles/vars.less"),
   themeVariables: Array.from(
     new Set([
       ...Object.keys(darkVars),
