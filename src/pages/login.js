@@ -1,4 +1,4 @@
-import { Button, Card, Form, Input } from "antd";
+import { Button, Card, Form, Input, Select } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -54,6 +54,20 @@ const LoginPage = () => {
           name="password"
         >
           <Input.Password />
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          label="Role"
+          name="role"
+        >
+          <Select>
+            <Select.Option value="admin">Admin</Select.Option>
+            <Select.Option value="user">User</Select.Option>
+          </Select>
         </Form.Item>
         <Button type="primary" htmlType="submit">
           Log in

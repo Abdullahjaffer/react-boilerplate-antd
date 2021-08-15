@@ -33,16 +33,40 @@ import { Redirect } from "react-router-dom";
 import LoggedInWrapper from "../components/wrappers/loggedInWrapper";
 import About from "../pages/about";
 import AddPost from "../pages/addPost";
+import BadRequest from "../pages/errorPages/badRequest";
+import NotFound from "../pages/errorPages/notFound";
+import Unauthorized from "../pages/errorPages/unauthorized";
 import Home from "../pages/home";
 import LoginPage from "../pages/login";
 import Posts from "../pages/posts";
 
+export const errorRoutes = [
+  {
+    path: "/bad-request",
+    component: BadRequest,
+  },
+  {
+    path: "/unauthorized",
+    component: Unauthorized,
+  },
+  {
+    path: "/*",
+    component: NotFound,
+  },
+];
+
 const routes = [
   // authentciated routes
+  {
+    path: "/",
+    exact: true,
+    component: () => <Redirect to={"/dashboard"} />,
+  },
   {
     path: "/dashboard",
     authenticated: true,
     childrenWrapper: LoggedInWrapper,
+    roles: ["admin"],
     childRoutes: [
       {
         path: "/",
@@ -55,15 +79,28 @@ const routes = [
       },
       {
         path: "/posts",
-        exact: true,
         childRoutes: [
           {
             path: "/",
+            exact: true,
             component: Posts,
+            roles: ["user"],
           },
           {
             path: "/create",
             component: AddPost,
+          },
+          {
+            path: "/bad-request",
+            component: BadRequest,
+          },
+          {
+            path: "/unauthorized",
+            component: Unauthorized,
+          },
+          {
+            path: "/*",
+            component: NotFound,
           },
         ],
       },
@@ -74,16 +111,11 @@ const routes = [
     component: LoginPage,
   },
   {
-    path: "*",
-    component: () => (
-      <Redirect
-        to={{
-          pathname: "/dashboard",
-          state: { from: "/" },
-        }}
-      />
-    ),
+    path: "/user",
+    roles: ["user"],
+    component: () => <div>Viewer</div>,
   },
+  ...errorRoutes,
 ];
 
 export default routes;

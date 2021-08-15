@@ -8,7 +8,7 @@ const LayoutProvider = ({ children }) => {
   const [isMobile, setMobile] = useState(false);
   const { width } = useWindowDimensions();
   useEffect(() => {
-    if (width < 1024) {
+    if (width < 720) {
       setCollapsed(true);
     }
     if (width < 520) {

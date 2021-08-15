@@ -1,14 +1,28 @@
 import _ from "lodash";
 import React from "react";
-import { Redirect, Route, useLocation } from "react-router-dom";
+import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import ConditionalWrapper from "../utils/conditionalWrapper";
-import isAuthenticated from "../utils/isAuthenticated";
+import isAuthenticated, { hasRole } from "../utils/isAuthenticated";
+import { errorRoutes } from "./routes";
 
-const AuthCheck = ({ authenticated, path, children }) => {
+const AuthCheck = ({ authenticated, path, children, roles = ["*"] }) => {
+  console.log(roles);
+  console.log(hasRole(roles));
   const location = useLocation();
   if (authenticated) {
     if (isAuthenticated()) {
-      return children;
+      if (hasRole(roles)) {
+        return children;
+      } else {
+        return (
+          <Redirect
+            to={{
+              pathname: "/unauthorized",
+              state: { from: location },
+            }}
+          />
+        );
+      }
     } else {
       return (
         <Redirect
@@ -32,31 +46,26 @@ const AuthedRoute = ({ childRoutes, childrenWrapper, ...props }) => {
         condition={!!childrenWrapper}
         wrapper={childrenWrapper}
       >
-        <Route
-          path={path}
-          render={({ match: { url } }) => (
-            <>
-              {childRoutes.map((route, i) => (
-                <AuthedRoute
-                  key={i}
-                  {..._.omit(props, ["childrenWrapper"])}
-                  {...route}
-                  path={url + route.path}
-                />
-              ))}
-            </>
-          )}
-        />
+        <Switch>
+          {[...childRoutes, ...errorRoutes].map((route, i) => (
+            <AuthedRoute
+              key={i}
+              {..._.omit(props, ["childrenWrapper"])}
+              {...route}
+              path={path + route.path}
+            />
+          ))}
+        </Switch>
       </ConditionalWrapper>
     );
   } else {
     let Component = component;
     component = (
-      <AuthCheck {...props}>
-        <Route path={path} exact={exact ?? false}>
+      <Route path={path} exact={exact}>
+        <AuthCheck {...props}>
           <Component />
-        </Route>
-      </AuthCheck>
+        </AuthCheck>
+      </Route>
     );
   }
   return component;
