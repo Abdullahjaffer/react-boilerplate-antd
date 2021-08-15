@@ -1,5 +1,6 @@
-import { Layout, message, Select, Spin } from "antd";
+import { message, Select, Spin } from "antd";
 import React, { createContext, useRef, useState } from "react";
+import FlexedDiv from "../../components/ui/flexedDiv";
 import "../main.less";
 import darkVars from "./dark.json";
 import lightVars from "./light.json";
@@ -58,9 +59,9 @@ const ThemeProvider = ({ children }) => {
 
   if (!state.themeApplied) {
     return (
-      <Spin size="large">
-        <Layout className="app" />
-      </Spin>
+      <FlexedDiv justifyContent="center" height="100vh">
+        <Spin size="large" />
+      </FlexedDiv>
     );
   }
 
@@ -77,7 +78,15 @@ const ThemeProvider = ({ children }) => {
 
   return (
     <ThemeContext.Provider value={{ state, toggleTheme }}>
-      {children}
+      <div
+        className={
+          state.themeName === DARK_THEME
+            ? "dark-theme-custom"
+            : "light-theme-custom"
+        }
+      >
+        {children}
+      </div>
     </ThemeContext.Provider>
   );
 };

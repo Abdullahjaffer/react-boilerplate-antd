@@ -1,13 +1,12 @@
 import { DownOutlined, LogoutOutlined } from "@ant-design/icons";
-import { Avatar, Dropdown, Layout, Menu, Switch, Typography } from "antd";
+import { Avatar, Dropdown, Layout, Menu, Typography } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as ReactLogo } from "../../assets/images/logo.svg";
-import { switchTheme } from "../../redux/slices/themeSlice";
 import { deleteUser } from "../../redux/slices/userSlice";
 import FlexedDiv from "../ui/flexedDiv";
-import ThemeSwitcher from "./themeSwitcher"
+import ThemeSwitcher from "./themeSwitcher";
 
 const { Header } = Layout;
 
@@ -46,7 +45,7 @@ const UserMenu = () => {
 
 const HeaderComponent = () => {
   return (
-    <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
+    <Header className="custom-header-layout">
       <FlexedDiv>
         <FlexedDiv justifyContent="start">
           <ReactLogo
@@ -56,7 +55,6 @@ const HeaderComponent = () => {
           />
           <Typography.Text>REACT BASIC</Typography.Text>
         </FlexedDiv>
-
         <UserMenu />
       </FlexedDiv>
     </Header>
