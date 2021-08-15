@@ -4,6 +4,7 @@ const FlexedDiv = ({
   children,
   justifyContent = "space-between",
   alignItems = "center",
+  ...props
 }) => {
   return (
     <div
@@ -11,6 +12,7 @@ const FlexedDiv = ({
         display: "flex",
         justifyContent: justifyContent,
         alignItems: alignItems,
+        ...props,
       }}
     >
       {children}
