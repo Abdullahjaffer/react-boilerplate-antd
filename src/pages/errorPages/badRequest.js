@@ -1,6 +1,6 @@
 import { Button, Result } from "antd";
 import React from "react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 
 const BadRequest = () => {
   const history = useHistory();
